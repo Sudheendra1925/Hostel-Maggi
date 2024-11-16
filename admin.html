@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maggi Shop Admin</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    color: #ff8c00;
+}
+
+.order-table {
+    margin-top: 20px;
+}
+
+.order-table h2 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table th {
+    background-color: #ff8c00;
+    color: white;
+}
+
+table td .status {
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+}
+
+.status.pending {
+    background-color: #f0ad4e;
+}
+
+.status.completed {
+    background-color: #5cb85c;
+}
+
+.btn {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    color: white;
+}
+
+.btn.update {
+    background-color: #0275d8;
+}
+
+.btn.delete {
+    background-color: #d9534f;
+}
+
+.btn.update:hover, .btn.delete:hover {
+    opacity: 0.8;
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Maggi Shop Admin Panel</h1>
+        </header>
+
+        <section class="order-table">
+            <h2>Manage Orders</h2>
+            <table border="1" frame="hsides" rules="rows" id="jobsheets-table">
+                <thead>
+                    <tr>
+                        <th>Order Id</th>
+                        <th>Name</th>
+                        <th>Quantity</th>
+                        <th>Phone number</th>
+                        <th>Room Number</th>
+                        <th>Price</th>
+                        <th>status</th>
+
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                    
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+<script>
+
+
+
+
+async function fetchData() {
+    try {
+        console.log('Fetching data...');
+        const response = await fetch('/data');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        console.log('Data received:', data);
+
+        const tbody = document.getElementById('tbody');
+        tbody.innerHTML = ''; // Clear existing table rows if any
+console.log(data)
+        data.forEach(row => {
+            const tr = document.createElement('tr');
+            tr.innerHTML =`
+                <td>${row.OrderId}</td>
+                <td>${row.name}</td>
+                <td>${row.quantity}</td>
+                <td>${row.pno}</td>
+                <td>${row.rno}</td>
+                <td>${row.price}</td>
+                <a href="/delete/${row.OrderId}" class="tdelete tb" onclick="return confirm('Are you sure you want to delete this row?');">Delete</a>
+               
+          `;
+           tbody.appendChild(tr);
+        }); 
+ 
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }  
+}
+
+
+
+document.addEventListener('DOMContentLoaded', fetchData);
+
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maggi Order Site</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff8e1;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://your-background-image-link.jpg'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            background-color: #ffeb3b;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #d32f2f;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        input, select, textarea {
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px;
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #b71c1c;
+        }
+
+        .total {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        /* Image Styling */
+        .maggi-img {
+            width: 100%;
+            max-width: 100px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 95%;
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            button {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+    
+        <img src="./maggi.avif" alt="Maggi" class="maggi-img"> 
+
+        <h1>Order Your Maggi!</h1>
+        <form id="orderForm" action="/order" method="post">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required>
+<!-- 
+            <label for="flavor">Select Flavor:</label>
+            <select id="flavor" name="flavor" required>
+                <option value="classic">Classic</option>
+                <option value="double masala">Masala</option>
+                 <option value="chili">Chili</option>
+                <option value="cheese">Cheese</option>
+            </select>  -->
+
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" value="1" min="1" required>
+
+            <label for="Pno">Phone Number:</label>
+            <input type="text" id="Pno" name="Pno" rows="1"  required>
+
+            <label for="Rno">Room Number:</label>
+            <input type="text" id="Rno" name="Rno" rows="1" required>
+            <label for="Price">Price:</label>
+            <input  type="text" id="Price" name="Price" value="30" readonly>
+  
+            <button type="submit">Place Order</button>
+        </form>
+
+    <script>
+        const Price = document.getElementById('Price');
+        const quantity=document.getElementById("quantity");
+        quantity.addEventListener('input', calculateTotal);
+
+        function calculateTotal() {
+            const quantity = document.getElementById('quantity').value;
+            const pricePerMaggi = 30;
+            const totalPrice = quantity * pricePerMaggi;
+        Price.value = totalPrice;
+        }
+
+        
+        
+
+    </script>
+
+</body>
+</html>
